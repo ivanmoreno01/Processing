@@ -1,6 +1,5 @@
-/*
-Ivan
-*/
+
+
 //variables
 int bolaX=150; //posición de la bola
 int bolay=150;
@@ -28,6 +27,9 @@ void draw(){
   case 1:
   nivel1();
   break;
+case 2:
+nivel2();
+break;
 }
 }
 //funciones del juego
@@ -38,9 +40,19 @@ void nivel1() {
   rebote();
   movimientopadel();
  scores();
+siguientenivel2();
 }
+void nivel2(){
+dibujarnivel2();
+movimientopelota();
+  contactoconpadel();
+  rebote();
+  movimientopadel();
+ scores();
 
-void dibujar() {
+
+}
+  void dibujar() {
  background(0,255,0);
 
   // Dibujar
@@ -91,9 +103,9 @@ fill(255,0,0);
 textSize(20);
 text("Level 1",350,50);
 textSize(20);
-text("ESTADIO DE FUTBOL", 300,370);
+text("EUROPA", 300,370);
 }
-}
+
 
 
 void movimientopelota() {
@@ -178,6 +190,68 @@ void depresentacionanivel1(){
   nivel1();
 }
 }
+
+void dibujarnivel2(){
+background(242,223,7);
+
+  // Dibujar
+  fill(255, 255, 255); //interfaz bola
+  ellipse(bolaX, bolay, 30, 30);
+  fill(0, 255, 255); //interfaz de las palas
+  rect(10, pal1, 10, 90); //posición pala 1
+  rect(780, pal2, 10, 90); //posición de la pala 2
+  stroke(255,255,255);
+  //linea del mediocentro
+  strokeWeight(10);
+  line(400,0,400,400);
+//area de la izquierda
+
+//linea a
+stroke(255,255,255);
+strokeWeight(10);
+line(0,100,200,100);
+
+//linea b
+stroke(255,255,255);
+strokeWeight(10);
+line(0,300,200,300);
+
+//linea c
+stroke(255,255,255);
+strokeWeight(10);
+line(200,100,200,300);
+//area de la derecha
+
+//linea a
+stroke(255,255,255);
+strokeWeight(10);
+line(800,100,600,100);
+
+//linea b
+stroke(255,255,255);
+strokeWeight(10);
+line(800,300,600,300);
+
+//linea c
+stroke(255,255,255);
+strokeWeight(10);
+line(600,300,600,100);
+
+//textos
+fill(255,0,0);
+textSize(20);
+text("Level 2",350,50);
+textSize(20);
+text("ÁFRICA", 300,370);
+}
+
+void siguientenivel2(){
+if (marcadorlocal>5 && marcadorvisitante>5){
+ nivel=nivel+2;
+nivel2();
+}
+
+}
 void keyPressed() {
   if (key=='s') {
   s=true;       //control pala debajo pala 1
@@ -209,5 +283,7 @@ void keyReleased() {
   a=false;
   }
 }
+
+
 
 
