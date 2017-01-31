@@ -1,3 +1,6 @@
+/*
+Ivan
+*/
 //variables
 int bolaX=150; //posición de la bola
 int bolay=150;
