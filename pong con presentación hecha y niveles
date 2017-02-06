@@ -1,0 +1,357 @@
+
+//variables
+int bolaX=150; //posición de la bola
+int bolay=150;
+int velx=5;   //velocidad de la bola
+int vely=5;
+int pal1=150;  //posición en eje y de la paleta1
+int pal2=150;    //posición en eje y de la paleta2
+int ballpos1=pal1+90;
+int ballpos2=pal2+90;
+boolean w, s, a, b; //variable booleana
+int nivel=0;
+int marcadorlocal=0;
+int marcadorvisitante=0;
+//clones
+Pelota miPelota1;
+Pelota miPelota2;
+Pelota miPelota3;
+Pelota miPelota4;
+Pelota miPelota5;
+
+void setup() {
+  size (800, 400);
+  miPelota1= new Pelota(width/4, height/2);
+  miPelota2= new Pelota(width*3/4, height/2);
+miPelota3= new Pelota(width*2/4, height/2);
+miPelota4= new Pelota(width*1/4, height/2);
+miPelota5= new Pelota(width*1.5/4, height/2);
+pasador();
+}
+
+void draw() {
+  switch (nivel) {
+  case 0:
+  presentacion();
+  break;
+  case 1:
+  nivel1();
+  break;
+case 2:
+ println (2);
+ nivel2();
+break;
+}
+println(nivel);
+}
+
+//funciones del juego
+void nivel1() {
+ dibujar();
+  movimientopelota();
+  contactoconpadel();
+  rebote();
+  movimientopadel();
+  scores();
+}
+void nivel2(){
+dibujarnivel2();
+movimientopelota();
+  contactoconpadel();
+  rebote();
+  movimientopadel();
+ scores();
+
+
+}
+  void dibujar() {
+ background(0,255,0);
+
+  // Dibujar
+  fill(255, 255, 255); //interfaz bola
+  ellipse(bolaX, bolay, 30, 30);
+  fill(0, 255, 255); //interfaz de las palas
+  rect(10, pal1, 10, 90); //posición pala 1
+  rect(780, pal2, 10, 90); //posición de la pala 2
+  stroke(255,255,255);
+  //linea del mediocentro
+  strokeWeight(10);
+  line(400,0,400,400);
+//area de la izquierda
+
+//linea a
+stroke(255,255,255);
+strokeWeight(10);
+line(0,100,200,100);
+
+//linea b
+stroke(255,255,255);
+strokeWeight(10);
+line(0,300,200,300);
+
+//linea c
+stroke(255,255,255);
+strokeWeight(10);
+line(200,100,200,300);
+//area de la derecha
+
+//linea a
+stroke(255,255,255);
+strokeWeight(10);
+line(800,100,600,100);
+
+//linea b
+stroke(255,255,255);
+strokeWeight(10);
+line(800,300,600,300);
+
+//linea c
+stroke(255,255,255);
+strokeWeight(10);
+line(600,300,600,100);
+
+//textos
+fill(255,0,0);
+textSize(20);
+text("Level 1",350,50);
+textSize(20);
+text("EUROPA", 300,370);
+}
+
+
+
+void movimientopelota() {
+  //mover pelota
+  bolaX=bolaX+velx; //veloc de la bola para el eje x
+  bolay=bolay+vely;  //veloc de la bola para eje y
+}
+
+void contactoconpadel() {
+  if (bolay>pal1 && bolay<ballpos1 && bolaX<35) {       //contacto de la bola con el padel1
+  velx=-velx;
+  }
+  if (bolay>pal2 && bolay<ballpos2 && bolaX>765) {     //contacto de la bola con el padel2
+  velx=-velx;
+  }
+}
+
+void rebote() {
+
+
+if ( bolaX > width) {
+    setup();
+   bolaX=400;
+marcadorlocal = marcadorlocal + 1;
+}
+   else if ( bolaX < 0 ) {
+    setup();
+  bolaX=400;
+  marcadorvisitante = marcadorvisitante + 1;
+   }
+ 
+  if ( bolay<15) {     //rebote en la parte izquierda
+  vely=-vely;
+ 
+  }
+if (bolay>385){
+ vely=-vely;
+                   //parte derecha         
+}
+}
+void scores(){
+ 
+  fill (250);
+text (marcadorlocal, 100, 50);
+text (marcadorvisitante, 500, 50);
+
+}
+
+void pasador(){
+if (marcadorlocal>5 || marcadorvisitante>5){
+  nivel=2;
+}
+}
+
+
+void movimientopadel() {
+  if (a) {
+  pal2=pal2-3;
+  }
+  if (b) {              //movimientos de la pala1
+  pal2=pal2+3;
+  }
+  if (w) {
+  pal1=pal1-3;
+  }
+  if (s) {            //movimientos de la pala2
+  pal1=pal1+3;
+  }
+}
+void movimientopadelsalavez() {
+  //si la variable es verdadera
+}
+//portadadeljuego
+ void presentacion() {
+background(0);
+  fill(200,150,150);
+  textSize(70);
+  text("Pong game", 250, 200);
+ textSize(20);
+ text("pulse espacio para empezar", 250,370);
+depresentacionanivel1();
+ miPelota1.move();
+  miPelota2.move();
+ miPelota3.move();
+ miPelota4.move();
+  miPelota5.move();
+  miPelota1.display();
+  miPelota2.display();
+  miPelota3.display();
+miPelota4.display();
+miPelota5.display();
+ }
+
+void depresentacionanivel1(){
+
+ if ( key==' ') {
+    nivel=nivel +1;
+    if (nivel==1) nivel=1;
+  nivel1();
+}
+}
+
+void dibujarnivel2(){
+background(242,223,7);
+
+  // Dibujar
+  fill(255, 255, 255); //interfaz bola
+  ellipse(bolaX, bolay, 30, 30);
+  fill(0, 255, 255); //interfaz de las palas
+  rect(10, pal1, 10, 90); //posición pala 1
+  rect(780, pal2, 10, 90); //posición de la pala 2
+  stroke(255,255,255);
+  //linea del mediocentro
+  strokeWeight(10);
+  line(400,0,400,400);
+//area de la izquierda
+
+//linea a
+stroke(255,255,255);
+strokeWeight(10);
+line(0,100,200,100);
+
+//linea b
+stroke(255,255,255);
+strokeWeight(10);
+line(0,300,200,300);
+
+//linea c
+stroke(255,255,255);
+strokeWeight(10);
+line(200,100,200,300);
+//area de la derecha
+
+//linea a
+stroke(255,255,255);
+strokeWeight(10);
+line(800,100,600,100);
+
+//linea b
+stroke(255,255,255);
+strokeWeight(10);
+line(800,300,600,300);
+
+//linea c
+stroke(255,255,255);
+strokeWeight(10);
+line(600,300,600,100);
+
+//textos
+fill(255,0,0);
+textSize(20);
+text("Level 2",350,50);
+textSize(20);
+text("ÁFRICA", 300,370);
+}
+
+
+
+
+void keyPressed() {
+  if (key=='s') {
+  s=true;       //control pala debajo pala 1
+  }
+  if (key=='w') {
+  w=true;        //control pala hacia arriba pala1
+  }  
+  if (keyCode==DOWN) {
+  b=true;                 //control hacia abajo pala2
+  }
+  if (keyCode==UP) {
+  a=true;                   //control hacia arriba pala2
+  }
+}
+
+//para poder controlar los dos padels a la vez //si la variable es falsa
+void keyReleased() {
+
+  if (key=='s') {
+  s=false;           //control pala debajo pala 1
+  }
+  if (key=='w') {
+  w=false;             //control pala hacia arriba pala1
+  }  
+  if (keyCode==DOWN) {     //control hacia abajo pala2
+  b=false;
+  }
+  if (keyCode==UP) {    //control hacia arriba pala2
+  a=false;
+  }
+}
+
+  
+
+class Pelota {
+  // DATOS
+  float xpos;  // posicion x de la pelota
+  float ypos;  // posicion y de la pelotq
+  color c;
+  float vx;  // velocidad x pelota
+  float vy;  // velocidad y pelota
+  float diameter;
+  float r;
+  float g;
+  float b;
+
+  // CONSTRUCTOR
+  Pelota(float xposTemp, float yposTemp) {
+    c=color (255);
+    xpos=xposTemp;
+    ypos=yposTemp;
+    vx=random(-5, 5);
+    vy=random(-5, 5); 
+    diameter= 35;
+    r=random(0, 255);
+    g=random(0, 255);
+    b=random(0, 255);
+  }
+  // FUNCIONES
+  void display() {
+
+    fill(c);
+    stroke(r, g, b);
+    strokeWeight(2);
+    ellipse(xpos, ypos, diameter, diameter);
+  }
+
+  void move() {
+    xpos=xpos+vx;
+    ypos=ypos+vy;
+    if ((xpos>width-diameter/2)||(xpos-diameter/2<0)) {
+      vx=-vx;
+    }  
+    if ((ypos>height-diameter/2)||(ypos-diameter/2<0)) {
+      vy=-vy;
+    }
+  }
+}
