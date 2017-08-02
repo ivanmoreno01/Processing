@@ -1,0 +1,29 @@
+  int m = 0;
+  int s = 0;
+
+  void setup(){
+  size(500,400);    
+
+
+
+  }
+  
+  void draw(){
+    
+  background(0);
+  textAlign(CENTER);
+  textSize(50);
+  delay(1000);
+  if (s<=59){
+  text(m+":"+s, width/2, height/2);
+  s = s+1;
+  }
+  else{
+  m = m+1;
+  s = 0;
+  text(m+":"+s, width/2, height/2);
+  
+  }
+  }
+  
+  
